@@ -1,74 +1,63 @@
 require 'spec_helper'
 
 describe "Static pages" do
-  
-  let(:base_title) { "Twitter"}
 
   describe "Home page" do
+    before { visit root_path } 
+
     it "should have the h1 'Twitter'" do
-      visit '/static_pages/home'
-      page.should have_selector('h1', :text => 'Welcome to Twitter!')
-    end
-    
-    it "should have the base title" do
-         visit '/static_pages/home'
-         page.should have_selector('title', :text => "Twitter")
+      page.should have_selector('h1', text: 'Welcome to Twitter!')
     end
 
-       it "should not have a custom page title" do
-         visit '/static_pages/home'
-         page.should_not have_selector('title', :text => '| Home')
-       end
+    it "should have the base title" do
+      page.should have_selector('title',
+                        text: "Twitter")
+    end
+
+    it "should have a custom page title" do
+      page.should have_selector('title', text: '| Welcome!')
+    end
   end
-  
+
   describe "Help page" do
+    
+    before { visit help_path}
+
     it "should have the h1 'Help'" do
-      visit '/static_pages/help'
-      page.should have_selector('h1', :text =>'Help')
+      page.should have_selector('h1', text: 'Help')
     end
-    
-    it "should have the base title" do
-      visit '/static_pages/help'
-      page.should have_selector('title', :text => "Twitter")
-    end
-    
-    it "should have the custom page title" do
-      visit '/static_pages/help'
-      page.should have_selector('title', :text => '| Help')
+
+    it "should have the title 'Help'" do
+      page.should have_selector('title',
+                        text: "Twitter | Help")
     end
   end
-  
+
   describe "About page" do
-    it "should have the h1 'About Us'" do
-      visit '/static_pages/about'
-      page.should have_selector('h1', :text => 'About Us')
-    end
     
-    it "should have the base title" do
-      visit '/static_pages/about'
-      page.should have_selector('title', :text => "Twitter")
+    before { visit about_path }
+
+    it "should have the h1 'About'" do
+      page.should have_selector('h1', text: 'About')
     end
-    
-    it "should have the custom title" do
-      visit '/static_pages/about'
-      page.should have_selector('title', :text => '| About Us')
+
+    it "should have the title 'About Us'" do
+      page.should have_selector('title',
+                    text: "Twitter | About")
     end
   end
-  
+
   describe "Contact page" do
-    it "should have the h1 'Contact Us'" do
-      visit '/static_pages/contact'
-      page.should have_selector('h1', :text => 'Contact Us')
-    end
     
-    it "should have the base title" do
-      visit '/static_pages/contact'
-      page.should have_selector('title', :text => "Twitter")
+    before { visit contact_path }
+
+    it "should have the h1 'Contact'" do
+      page.should have_selector('h1', text: 'Contact')
     end
-    
-    it "should have the title custom title" do 
-      visit '/static_pages/contact'
-      page.should have_selector('title', :text => '| Contact Us')
+
+    it "should have the title 'Contact'" do
+      page.should have_selector('title',
+                    text: "Twitter | Contact")
     end
   end
 end
